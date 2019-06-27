@@ -19,7 +19,7 @@ export const Scraper = async (req: Request, res: Response, next: NextFunction) =
     const page: Page = await browser.newPage();
     await page.setRequestInterception(true);
     page.on('request', req => {
-      if (req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image') {
+      if (req.resourceType() === 'stylesheet' || req.resourceType() === 'script' || req.resourceType() === 'image') {
         req.abort();
       }
       else {
@@ -27,7 +27,7 @@ export const Scraper = async (req: Request, res: Response, next: NextFunction) =
       }
     })
 
-    await page.goto(request.url);
+    await page.goto(request.url, { waitUntil: 'networkidle0' });
     const html: string = await page.evaluate(() => document.body.innerHTML);
     
     await browser.close();
