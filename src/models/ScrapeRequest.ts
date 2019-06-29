@@ -1,3 +1,3 @@
 export interface ScrapeRequest {
-  url: string
+  url: string;
 }

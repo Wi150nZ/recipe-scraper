@@ -1,11 +1,39 @@
-import { Request, Response } from 'express';
-import { ScrapeRequest } from '../../models/ScrapeRequst';
+import { Request, Response, NextFunction } from 'express';
+import { launch as launchChromium, Browser, Page } from 'puppeteer';
+import { ScrapeRequest } from '../../models/ScrapeRequest';
 
-export const Scraper = (req: Request, res: Response) => {
+export const Scraper = async (req: Request, res: Response, next: NextFunction) => {
   const request: ScrapeRequest = req.body;
-  console.log(`recieved scrape request for url: ${request.url}`)
 
-  res.send({
-    'message': 'ACK'
-  })
+  console.log(`recieved scrape request for url: ${request.url}`);
+
+  try {
+    const browser: Browser = await launchChromium({
+      headless: true,
+      args: [
+        '--proxy-server="direct://"',
+        '--proxy-bypass-list=*'
+      ]
+    });
+    const page: Page = await browser.newPage();
+    await page.setRequestInterception(true);
+    page.on('request', req => {
+      if (req.resourceType() === 'stylesheet' || req.resourceType() === 'script' || req.resourceType() === 'image') {
+        req.abort();
+      }
+      else {
+        req.continue();
+      }
+    })
+
+    await page.goto(request.url, { waitUntil: 'networkidle0' });
+    const html: string = await page.evaluate(() => document.body.innerHTML);
+    
+    await browser.close();
+
+    res.locals.html = html;
+    next();
+  } catch (error) {
+    throw error;
+  }
 };
