@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { launch as launchChromium, Browser, Page } from 'puppeteer';
-import { ScrapeRequest } from '../../models/ScrapeRequst';
+import { ScrapeRequest } from '../../models/ScrapeRequest';
 
 export const Scraper = async (req: Request, res: Response, next: NextFunction) => {
   const request: ScrapeRequest = req.body;
 
-  // logging section
   console.log(`recieved scrape request for url: ${request.url}`);
 
   try {
