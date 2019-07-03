@@ -40,6 +40,6 @@ export const SpendWithPennies = (req: Request, res: Response, next: NextFunction
 
     res.send(result);
   } else {
-    next()
+    next();
   }
 }

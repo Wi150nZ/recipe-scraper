@@ -34,6 +34,6 @@ export const Scraper = async (req: Request, res: Response, next: NextFunction) =
     res.locals.html = html;
     next();
   } catch (error) {
-    throw error;
+    next(error);
   }
 };
