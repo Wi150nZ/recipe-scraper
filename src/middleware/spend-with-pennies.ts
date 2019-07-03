@@ -15,7 +15,7 @@ const fetchIngredients = (html: CheerioStatic): string[] => {
   });
 
   return ingredients;
-}
+};
 
 const fetchInstructions = (html: CheerioStatic): string[] => {
   const instructions: string[] = [];
@@ -25,7 +25,7 @@ const fetchInstructions = (html: CheerioStatic): string[] => {
   });
 
   return instructions;
-}
+};
 
 export const SpendWithPennies = (req: Request, res: Response, next: NextFunction) => {
   const request: ScrapeRequest = req.body;
@@ -42,4 +42,4 @@ export const SpendWithPennies = (req: Request, res: Response, next: NextFunction
   } else {
     next();
   }
-}
+};

@@ -1,12 +1,18 @@
 import { Errback, Request, Response, NextFunction } from 'express';
 import { ScrapeRequest } from '../models/ScrapeRequest';
+import { ErrorMessage } from '../models/ErrorMessage';
 
-export const ErrorHandler = (err: Errback, req: Request, res: Response, next: NextFunction) => {
-  if (err) {
-    console.error(err);
-    res.status(500).send('something when wrong!');
+export const GenericErrorHandler = (err: Errback, req: Request, res: Response, next: NextFunction) => {
+  const error: ErrorMessage = {
+    message: 'something broke on our side'
   }
+  res.status(500).send(error);
+};
 
+export const UnsupportDomainHandler = (req: Request, res: Response, next: NextFunction) => {
   const request: ScrapeRequest = req.body;
-  res.status(400).send(`url, ${request.url}, not supported!`);
+  const error: ErrorMessage = {
+    message: `unsupported domain`
+  }
+  res.status(400).send(error);
 }
