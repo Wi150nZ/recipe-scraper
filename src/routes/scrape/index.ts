@@ -5,8 +5,6 @@ import { ScrapeRequest } from '../../models/ScrapeRequest';
 export const Scraper = async (req: Request, res: Response, next: NextFunction) => {
   const request: ScrapeRequest = req.body;
 
-  console.log(`recieved scrape request for url: ${request.url}`);
-
   try {
     const browser: Browser = await launchChromium({
       headless: true,
