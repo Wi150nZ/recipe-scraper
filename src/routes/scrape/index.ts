@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { launch as launchChromium, Browser, Page } from 'puppeteer';
+import { launch as launchChromium, Browser, Page, Request as ChromiumRequest } from 'puppeteer';
 import { ScrapeRequest } from '../../models/ScrapeRequest';
 
 export const Scraper = async (req: Request, res: Response, next: NextFunction) => {
@@ -13,16 +13,18 @@ export const Scraper = async (req: Request, res: Response, next: NextFunction) =
         '--proxy-bypass-list=*'
       ]
     });
+
     const page: Page = await browser.newPage();
     await page.setRequestInterception(true);
-    page.on('request', req => {
+    const requestCallBack: any = (req: ChromiumRequest) => {
       if (req.resourceType() === 'stylesheet' || req.resourceType() === 'script' || req.resourceType() === 'image') {
         req.abort();
       }
       else {
         req.continue();
       }
-    })
+    };
+    page.on('request', requestCallBack);
 
     await page.goto(request.url, { waitUntil: 'networkidle0' });
     const html: string = await page.evaluate(() => document.body.innerHTML);

@@ -3,6 +3,7 @@
     "outDir": "./build/",
     "noImplicitAny": true,
     "module": "commonjs",
+    "inlineSourceMap": false,
     "target": "es5"
   }
 }
