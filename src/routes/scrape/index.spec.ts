@@ -123,5 +123,4 @@ describe('Scraping router', () => {
     expect(mockResponse.locals.html).to.be.equal('some html');
     expect(mockNext.calledOnce).to.be.true;
   });
-
 });
