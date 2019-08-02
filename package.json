@@ -4,11 +4,22 @@
   "description": "a scraper for retrieving recipes from the interwebs",
   "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha -r ts-node/register -r source-map-support/register 'src/**/*.spec.ts'",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "build": "tsc",
     "start": "node build/index.js",
     "clean": "rm -rf build/"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts",
+      "**/*.spec.ts",
+      "src/models/*"
+    ],
+    "all": true
   },
   "repository": {
     "type": "git",
@@ -31,6 +42,14 @@
     "puppeteer": "^1.18.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.7",
+    "@types/sinon": "^7.0.13",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "sinon": "^7.3.2",
+    "source-map-support": "^0.5.12",
     "ts-node-dev": "^1.0.0-pre.40",
     "typescript": "^3.5.1"
   }
