@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as cheerio from 'cheerio';
-import { ScrapeRequest } from '../models/ScrapeRequest';
-import { ScrapeResult } from '../models/ScrapeResult';
+import { ScrapeRequest } from '../../models/ScrapeRequest';
+import { ScrapeResult } from '../../models/ScrapeResult';
 
 const fetchTitle = (html: CheerioStatic): string => {
   return html('h1[class=entry-title]').text();
