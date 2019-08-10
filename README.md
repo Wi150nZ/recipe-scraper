@@ -6,9 +6,12 @@ a scraper for retrieving recipes from the interwebs
 ## architectural design of the scraper
 The overall design of the scraper aims to be as modular as possible, allowing for ease of adding more websites to scrape from and for debugging. Each unique domain will have its own middleware that will contain the logic for performing the scraping, which comes from the route passing the html data.
 
+## supported domains
+- `https://spendwithpennies.com`
+- `https://tasteofhome.com`
+
 ## todo
 - reduce overhead from opening and closing chromium
   - ideally we should have one instance of chromium and only closing chromium when the application closes
-- start unit testing
-- add support for `tasteofhome`
+- unit testing
 - machine learning???
