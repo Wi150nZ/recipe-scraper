@@ -4,7 +4,7 @@
   "description": "a scraper for retrieving recipes from the interwebs",
   "main": "app.ts",
   "scripts": {
-    "test": "nyc mocha -r ts-node/register -r source-map-support/register 'src/**/*.spec.ts'",
+    "test": "nyc mocha 'src/**/*.spec.ts'",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts",
     "build": "tsc",
     "start": "node build/index.js",
@@ -19,6 +19,11 @@
       "**/*.spec.ts",
       "src/models/*"
     ],
+    "require": [
+      "source-map-support/register",
+      "ts-node/register"
+    ],
+    "cache": false,
     "all": true
   },
   "repository": {
