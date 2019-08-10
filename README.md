@@ -13,5 +13,9 @@ The overall design of the scraper aims to be as modular as possible, allowing fo
 ## todo
 - reduce overhead from opening and closing chromium
   - ideally we should have one instance of chromium and only closing chromium when the application closes
-- unit testing
 - machine learning???
+
+## technical debts
+- unit tests for `error-handler` middleware
+- unit tests for `spend-with-pennies` middleware
+- setup linter for code consistency
